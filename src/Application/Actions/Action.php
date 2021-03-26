@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Views\PhpRenderer;
 
 abstract class Action
 {
@@ -16,6 +17,11 @@ abstract class Action
      * @var LoggerInterface
      */
     protected $logger;
+
+    /**
+     * @var PhpRenderer
+     */
+    protected $view;
 
     /**
      * @var Request
@@ -35,9 +41,10 @@ abstract class Action
     /**
      * @param LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, PhpRenderer $view)
     {
         $this->logger = $logger;
+        $this->view = $view;
     }
 
     /**

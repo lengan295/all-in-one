@@ -8,6 +8,7 @@ use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Slim\Views\PhpRenderer;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
@@ -24,6 +25,9 @@ return function (ContainerBuilder $containerBuilder) {
             $logger->pushHandler($handler);
 
             return $logger;
+        },
+        PhpRenderer::class => function (ContainerInterface $c) {
+            return new \Slim\Views\PhpRenderer('../templates/');
         },
     ]);
 };
