@@ -15,7 +15,7 @@ class ViewHomepageAction extends Action {
     protected function action(): Response {
         $this->logger->info("Homepage was viewed.");
 
-        $response = $this->view->render($this->response, 'home.phtml');
+        $response = $this->render('home.phtml');
         return $response;
     }
 }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Application\Actions;
 
+use App\Application\Constants\ViewConstants;
 use App\Domain\DomainException\DomainRecordNotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -127,5 +128,11 @@ abstract class Action {
         return $this->response
             ->withHeader('Content-Type', 'application/json')
             ->withStatus($payload->getStatusCode());
+    }
+
+    protected function render(string $template, array $data = []): Response {
+        $data["js_dir"] = ViewConstants::JS_DIR;
+        $data["css_dir"] = ViewConstants::CSS_DIR;
+        return $this->view->render($this->response, $template, $data);
     }
 }
